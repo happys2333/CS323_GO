@@ -1,0 +1,39 @@
+//
+// Created by happys on 22-11-23.
+//
+
+#ifndef SPLC_CHECK_H
+#define SPLC_CHECK_H
+
+typedef enum errorType
+{
+    NO_ERROR,
+    WRONG_INT,
+    WRONG_ID,
+    WRONG_CHAR,
+    WRONG_COMMENT,
+    UNKNOWN_WORD,
+    SYNTAX_ERROR
+} error_type;
+
+typedef enum semanticError{
+    UNDEFINED_VARIABLE,
+    UNDEFINED_FUNCTION,
+    REDEFINE_VARIABLE,
+    REDEFINE_FUNCTION,
+    UNMATCHED_VARIABLE,
+    LEFT_VAR_REVALUE,
+    UNMATCHED_OPERAND,
+    RETURN_TYPE_ERROR,
+    FUNCTION_ARGUMENT_UNMATCHED,
+    NOT_ARRAY,
+    NOT_FUNCTION,
+    INDEX_NOT_NUMBER,
+    NOT_STRUCT,
+    UNDEFINED_STRUCT_NUMBER,
+    REDEFINE_STRUCT
+} semantic_error;
+
+
+
+#endif //SPLC_CHECK_H

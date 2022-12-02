@@ -1,0 +1,22 @@
+int test_5()
+{
+    return 0;
+}
+
+int test_5()
+{
+    int test = 1;
+    int test2 = test();
+
+    int int_arr[32];
+    int_arr[test] = test;
+    int_arr[int_arr[test]]='c';
+
+
+    float float_arr[32];
+    float_arr[test] = 2.0;
+    float_arr[float_arr[test]] = 1.0;
+
+    return 0;
+}
+

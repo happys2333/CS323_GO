@@ -1,0 +1,19 @@
+float method_1(int a, float b, char c){
+    c='m';
+    float ans= a + b;
+    return c;
+}
+
+int test_3()
+{
+    int x = 1;
+    x = 2.0;
+    char c = 'c';
+    float y = method_1( c, c, c);
+    int z = method_2( c, c, c);
+
+    char t = method_1( 1, 1.0, 'c');
+
+    return y;
+}
+

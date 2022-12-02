@@ -1,0 +1,29 @@
+struct STU
+{
+    char name[20];
+    int age;
+    char sex;
+    float height;
+};
+
+struct STU method_4(struct STU stu[5]){
+    float a = 1.0;
+    stu[a].age = 1;
+
+    int b = 1;
+    return stu[b];
+}
+
+
+int test_4()
+{
+    struct STU ss[5];
+    int a = method_4(ss);
+
+    ss[1] = method_4(a, b, c);
+    ss[1] = method_4(ss);
+    ss[1].age = ss[2].age + ss[3];
+    ss[1].age = ss[2].height + ss[3].height;
+
+    return 0.0;
+}

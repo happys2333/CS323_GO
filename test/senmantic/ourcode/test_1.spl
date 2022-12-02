@@ -1,0 +1,18 @@
+int test1(){
+    int a = b;
+    a = 100;
+    100 = a;
+    
+    int c = 3.1415;
+    int d = 1;
+    d.member = 'd';
+
+    a|d = 2;
+    a&d = 2;
+    if (a[1][2] == 100){
+        return 1.0;
+    }
+    else {
+        return 2.0;
+    }
+}
