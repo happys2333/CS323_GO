@@ -13,7 +13,7 @@ func main() {
 	}
 	filePath := os.Args[1]
 	outputFilePath := strings.Replace(filePath, ".spl", ".out", 1)
-	outputFile, err := os.OpenFile(outputFilePath, os.O_WRONLY|os.O_CREATE, 0777)
+	outputFile, err := os.OpenFile(outputFilePath, os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0777)
 	if err != nil {
 		println(err.Error())
 		return
@@ -22,4 +22,5 @@ func main() {
 	os.Stdout = outputFile
 
 	paser.Syntax(filePath)
+
 }

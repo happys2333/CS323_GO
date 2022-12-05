@@ -1,6 +1,8 @@
 package paser
 
-import "CS323_GO/model"
+import (
+	"CS323_GO/model"
+)
 import "container/list"
 
 func BuildSymbolTable(root *model.GrammarNode) *list.List {
@@ -30,11 +32,9 @@ func BuildSymbolTable(root *model.GrammarNode) *list.List {
 				symbolList = make(map[string]*model.SymbolNode)
 				symbolTable.PushBack(symbolList)
 				if now.Parent.String() == "ExtDef" {
-					funcNode := now.Parent.Child[0]
+					funcNode := now.Parent.Child[1]
 					funcId := funcNode.Child[0].String()
-					if symbolList[funcId] != nil {
-						model.RedefineFunction.PrintError(funcNode.Line, funcId)
-					}
+
 					funcSymbol := GetSymbolById(funcId, symbolTable)
 					Parameter := GetParameter(funcSymbol)
 					for k, v := range Parameter {
@@ -53,13 +53,17 @@ func BuildSymbolTable(root *model.GrammarNode) *list.List {
 				GetExpSymbol(now, symbolTable)
 			} else if nterm == "ExtDef" && !now.IsVisited {
 				tmp := GetSymbolFromExtdef(now, symbolList, symbolTable)
-				for k, v := range tmp {
-					symbolList[k] = v
+				if tmp != nil {
+					for k, v := range tmp {
+						symbolList[k] = v
+					}
 				}
-			} else if nterm == "Stmt " && len(now.Child) == 3 {
+
+			} else if nterm == "Stmt" && len(now.Child) == 3 {
+				//TODO : find ID
 				function := GetCurrentFunction(symbolTable)
 				exp := now.Child[1]
-				returnType := function.Type.(*model.FuncType).Return
+				returnType := function.Type.(*model.SymbolNode).Type.(*model.FuncType).Return
 				actType := GetExpSymbol(exp, symbolTable)
 				if actType == nil {
 					model.ReturnTypeError.PrintError(exp.Line, function.Name)
@@ -70,8 +74,8 @@ func BuildSymbolTable(root *model.GrammarNode) *list.List {
 		}
 
 		childList := now.Child
-		for _, child := range childList {
-			grammarStack.Push(child)
+		for i := len(childList) - 1; i >= 0; i-- {
+			grammarStack.Push(childList[i])
 		}
 	}
 

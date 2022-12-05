@@ -34,6 +34,7 @@ type FiledType struct {
 type FuncType struct {
 	Return *SymbolNode
 	Params *ParameterType
+	Line int
 }
 
 type ValType struct {
@@ -170,4 +171,45 @@ func (t *FiledType) FindById(id string) *SymbolNode {
 		t = t.Next
 	}
 	return nil
+}
+
+func (a *ArrayType) SetArraySize(size int) {
+	a.Size = size
+}
+
+func (a *ArrayType) SetArrayType(t *SymbolNode) {
+	a.Base = t
+}
+
+func (s *SymbolNode) AddStructField(field *FiledType) {
+	if s.Type == nil {
+		s.Type = field
+		return
+	}
+	cur := s.Type.(*FiledType)
+	for cur.Next != nil {
+		cur = cur.Next
+	}
+	cur.Next = field
+}
+
+func (s *SymbolNode) SetFuncReturnSymbol(ret *SymbolNode) {
+	s.Type.(*FuncType).Return = ret
+}
+func (s *SymbolNode) AddFuncParam(param *SymbolNode) {
+	par := &ParameterType{
+		Name: param.Name,
+		Base: param,
+		Next: nil,
+	}
+	if s.Type.(*FuncType).Params == nil {
+		s.Type.(*FuncType).Params = par
+		return
+	}
+	cur := s.Type.(*FuncType).Params
+	for cur.Next != nil {
+		cur = cur.Next
+	}
+	cur.Next = par
+
 }
