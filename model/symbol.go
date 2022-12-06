@@ -34,7 +34,7 @@ type FiledType struct {
 type FuncType struct {
 	Return *SymbolNode
 	Params *ParameterType
-	Line int
+	Line   int
 }
 
 type ValType struct {
@@ -151,6 +151,12 @@ func (s1 *SymbolNode) Equal(s2 *SymbolNode) bool {
 }
 
 func (p1 *ParameterType) Equal(p2 *ParameterType) bool {
+	if p1 == nil && p2 != nil {
+		return false
+	}
+	if p1 != nil && p2 == nil {
+		return false
+	}
 	if !p1.Base.Equal(p2.Base) {
 		return false
 	}

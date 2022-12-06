@@ -1,6 +1,9 @@
 package model
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type SenmanticError int
 
@@ -31,13 +34,13 @@ func (e SenmanticError) PrintError(line int, info string) {
 		fmt.Printf("Error type %d at Line %d: undefined function: %s\n", e+1, line, info)
 		break
 	case RedefineVariable:
-		fmt.Printf("Error type %d at Line %d: redefined variable: %s\n", e+1, line, info)
+		fmt.Printf("Error type %d at Line %d: redefine variable: %s\n", e+1, line, info)
 		break
 	case RedefineFunction:
-		fmt.Printf("Error type %d at Line %d: redefined function: %s\n", e+1, line, info)
+		fmt.Printf("Error type %d at Line %d: redefine function: %s\n", e+1, line, info)
 		break
 	case UnmatchedVariable:
-		fmt.Printf("Error type %d at Line %d: unmatching type on both sides of assignment \n", e+1, line)
+		fmt.Printf("Error type %d at Line %d: unmatching type on both sides of assignment\n", e+1, line)
 		break
 	case LeftVarRevalue:
 		fmt.Printf("Error type %d at Line %d: left side in assignment is rvalue\n", e+1, line)
@@ -67,7 +70,7 @@ func (e SenmanticError) PrintError(line int, info string) {
 		fmt.Printf("Error type %d at Line %d: access an undefined structure member\n", e+1, line)
 		break
 	case RedefineStruct:
-		fmt.Printf("Error type %d at Line %d: redefine struct: %s\n", e+1, line, info)
+		fmt.Printf("Error type %d at Line %d: redefine struct: %s\n", e+1, line, strings.ReplaceAll(info, "strcut ", ""))
 		break
 	}
 }

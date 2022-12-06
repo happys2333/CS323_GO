@@ -100,6 +100,9 @@ func getSymbolFromFunction(funcS *model.GrammarNode, returnT *model.SymbolNode, 
 		}
 		if pare.WordType == model.NTERM && (*pare).String() == "ParamDec" {
 			t := getSymbolFromParamdec(pare, list, table)
+			if parentMap[t.Name] != nil {
+				model.RedefineVariable.PrintError(funcS.Line, t.Name)
+			}
 			parentMap[t.Name] = t
 			continue
 		}
@@ -119,6 +122,9 @@ func getSymbolFromFunction(funcS *model.GrammarNode, returnT *model.SymbolNode, 
 func getSymbolFromVarDec(node *model.GrammarNode, specifier, array *model.SymbolNode, list map[string]*model.SymbolNode, table *list.List) *model.SymbolNode {
 	if len(node.Child) == 1 {
 		child := node.Child[0]
+		if array == nil && specifier == nil {
+			return &model.SymbolNode{Name: child.String()}
+		}
 		if array == nil {
 			specifier.Name = child.String()
 			return specifier
@@ -209,6 +215,11 @@ func GetExpSymbol(node *model.GrammarNode, table *list.List) *model.SymbolNode {
 		id := (*first).String()
 		funcType := GetSymbolById(id, table)
 		if funcType == nil {
+			model.UndefinedFunction.PrintError(node.Line, id)
+			node.SymbolNode = nil
+			return nil
+		}
+		if funcType.Type == nil {
 			model.UndefinedFunction.PrintError(node.Line, id)
 			node.SymbolNode = nil
 			return nil
@@ -366,7 +377,7 @@ func GetCurrentFunction(table *list.List) *model.SymbolNode {
 		funcN := v.Type.(*model.SymbolNode).Type.(*model.FuncType)
 		if funcN.Line > backLine {
 			back = v
-            backLine = funcN.Line
+			backLine = funcN.Line
 		}
 	}
 	return back
@@ -422,7 +433,7 @@ func GetSymbolFromExtdef(node *model.GrammarNode, list map[string]*model.SymbolN
 		funcS := node.Child[1]
 		tem := getSymbolFromFunction(funcS, returnSymbol, list, table)
 		//re := false
-		for e := table.Front(); e != nil; e = e.Next(){
+		for e := table.Front(); e != nil; e = e.Next() {
 			n := e.Value.(map[string]*model.SymbolNode)[tem.Name]
 			if n != nil && n.Category == model.FUNCTION {
 				//re = true
@@ -430,8 +441,8 @@ func GetSymbolFromExtdef(node *model.GrammarNode, list map[string]*model.SymbolN
 			}
 		}
 		//if !re {
-			newMap[tem.Name] = tem
-        //}
+		newMap[tem.Name] = tem
+		//}
 		return newMap
 	}
 }
