@@ -7,6 +7,8 @@ import (
 
 type SenmanticError int
 
+var IsError bool = false
+
 const (
 	UndefinedVariable SenmanticError = iota
 	UndefinedFunction
@@ -26,6 +28,7 @@ const (
 )
 
 func (e SenmanticError) PrintError(line int, info string) {
+	IsError = true
 	switch e {
 	case UndefinedVariable:
 		fmt.Printf("Error type %d at Line %d: undefined variable: %s\n", e+1, line, info)

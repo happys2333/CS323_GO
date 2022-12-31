@@ -170,10 +170,9 @@ func getSymbolFromSpecifier(spec *model.GrammarNode, list map[string]*model.Symb
 
 // Public Func
 
-func Syntax(path string) *list.List {
+func Syntax(path string) *model.GrammarNode {
 	root := GetGrammerNode(path)
-	symbolTable := BuildSymbolTable(root)
-	return symbolTable
+	return root
 }
 
 func GetSymbolById(id string, table *list.List) *model.SymbolNode {

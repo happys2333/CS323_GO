@@ -7,6 +7,7 @@ import "container/list"
 
 func BuildSymbolTable(root *model.GrammarNode) *list.List {
 	symbolTable := list.New()
+	irList := list.New()
 	symbolList := make(map[string]*model.SymbolNode)
 
 	grammarStack := model.NewStack()
@@ -79,5 +80,5 @@ func BuildSymbolTable(root *model.GrammarNode) *list.List {
 		}
 	}
 
-	return symbolTable
+	return irList
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"CS323_GO/model"
 	"CS323_GO/paser"
 	"os"
 	"strings"
@@ -21,6 +22,10 @@ func main() {
 	defer outputFile.Close()
 	os.Stdout = outputFile
 
-	paser.Syntax(filePath)
+	root := paser.Syntax(filePath)
+	irList := paser.BuildSymbolTable(root)
+	if !model.IsError {
+		
+	}
 
 }

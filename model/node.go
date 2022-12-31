@@ -47,8 +47,54 @@ const (
 	RB
 	LC
 	RC
-	UNKNOWN_TYPE_OF_WORD
+	FUN
+	READ
+	WRITE
+	LEFT
+	RIGHT
+	LIST
+	PARAM
+	CALL
+	LAB
+	GOTO
+	ARG
+	ADDRESS
+	DEC
+
+	NONE
+	UNKNOWN
 )
+
+func (t WordType) String() string {
+	switch t {
+	case ASSIGN:
+		return "="
+	case PLUS:
+		return "+"
+	case MINUS:
+		return "-"
+	case MUL:
+		return "*"
+	case DOT:
+		return "."
+	case DIV:
+		return "/"
+	case EQ:
+		return "=="
+	case NE:
+		return "!="
+	case LT:
+		return "<"
+	case GT:
+		return ">"
+	case LE:
+		return "<="
+	case GE:
+		return ">="
+
+	}
+	return ""
+}
 
 type GrammarNode struct {
 	WordType   WordType
