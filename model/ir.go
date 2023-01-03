@@ -14,12 +14,19 @@ const (
 	FUNC
 )
 
-type operand struct {
+type Operand struct {
 	opType operandType
 	val    any
 }
 
-func (op *operand) String() string {
+func NewOperand(opType operandType, val any) Operand {
+	return Operand{
+		opType: opType,
+		val:    val,
+	}
+}
+
+func (op *Operand) String() string {
 	switch op.opType {
 	case VARIABLE:
 		return op.val.(string)
@@ -34,15 +41,31 @@ func (op *operand) String() string {
 }
 
 type IrCode struct {
-	irType WordType
-	val    []operand
-	next   *IrCode
-	prev   *IrCode
+	IrType WordType
+	val    []Operand
 	ifR    WordType
+	Prev   *IrCode
+	Next   *IrCode
 }
 
+func ConnectIr(code ...*IrCode) *IrCode {
+	t := make([]*IrCode, 0, len(code))
+	for _, v := range code {
+		if v != nil {
+			t = append(t, v)
+		}
+	}
+	for i := 0; i < len(t)-1; i++ {
+		cur := t[i]
+		for ; cur.Next != nil; cur = cur.Next {
+		}
+		cur.Next = t[i+1]
+		t[i+1].Prev = cur
+	}
+	return t[0]
+}
 func (c *IrCode) String() string {
-	switch c.irType {
+	switch c.IrType {
 	case LAB:
 		return fmt.Sprintf("LABEL %s :", c.val[0].String())
 	case FUN:
@@ -72,16 +95,24 @@ func (c *IrCode) String() string {
 	case RIGHT:
 		return fmt.Sprintf("%s := *%s", c.val[0].String(), c.val[1].String())
 	case PLUS:
-		return fmt.Sprintf("%s := %s + %s", c.val[0].String(), c.val[1].String(), c.val[2].String())
+		return fmt.Sprintf("%s := %s + %s", c.val[2].String(), c.val[0].String(), c.val[1].String())
 	case MINUS:
-		return fmt.Sprintf("%s := %s - %s", c.val[0].String(), c.val[1].String(), c.val[2].String())
+		return fmt.Sprintf("%s := %s - %s", c.val[2].String(), c.val[0].String(), c.val[1].String())
 	case MUL:
-		return fmt.Sprintf("%s := %s * %s", c.val[0].String(), c.val[1].String(), c.val[2].String())
+		return fmt.Sprintf("%s := %s * %s", c.val[2].String(), c.val[0].String(), c.val[1].String())
 	case DIV:
-		return fmt.Sprintf("%s := %s / %s", c.val[0].String(), c.val[1].String(), c.val[2].String())
+		return fmt.Sprintf("%s := %s / %s", c.val[2].String(), c.val[0].String(), c.val[1].String())
 	case IF:
 		return fmt.Sprintf("IF %s %s %s GOTO %s", c.val[0].String(), c.ifR.String(), c.val[1].String(), c.val[2].String())
 	}
 
 	return ""
+}
+
+func NewIrCode(irType WordType, val []Operand, ifR WordType) *IrCode {
+	return &IrCode{
+		IrType: irType,
+		val:    val,
+		ifR:    ifR,
+	}
 }

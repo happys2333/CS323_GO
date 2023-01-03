@@ -5,20 +5,38 @@ import (
 )
 import "container/list"
 
-func BuildSymbolTable(root *model.GrammarNode) *list.List {
+func BuildSymbolTable(root *model.GrammarNode) {
 	symbolTable := list.New()
-	irList := list.New()
+
 	symbolList := make(map[string]*model.SymbolNode)
 
 	grammarStack := model.NewStack()
 	grammarStack.Push(root)
 	symbolTable.PushBack(symbolList)
+	read := &model.SymbolNode{
+		Type:       model.NewSymbolNode("func"),
+		Name:       "read",
+		SymbolType: 0,
+		Category:   0,
+	}
+	write := &model.SymbolNode{
+		Type:       model.NewSymbolNode("func"),
+		Name:       "write",
+		SymbolType: 0,
+		Category:   0,
+	}
+	read.Type.(*model.SymbolNode).SetFuncReturnSymbol(model.NewSymbolNode("int"))
+	paramWrite := model.NewSymbolNode("int")
+	paramWrite.Name = "x"
+	write.Type.(*model.SymbolNode).AddFuncParam(paramWrite)
+	symbolList["read"] = read
+	symbolList["write"] = write
 	for !grammarStack.IsEmpty() {
 		t, err := grammarStack.Pop()
 		now := *t
 		if err != nil {
 			println(err)
-			return nil
+			return
 		}
 		if now.WordType == model.RC && now.Parent.WordType == model.NTERM && now.Parent.String() == "CompSt" {
 			symbolTable.Remove(symbolTable.Back())
@@ -61,7 +79,6 @@ func BuildSymbolTable(root *model.GrammarNode) *list.List {
 				}
 
 			} else if nterm == "Stmt" && len(now.Child) == 3 {
-				//TODO : find ID
 				function := GetCurrentFunction(symbolTable)
 				exp := now.Child[1]
 				returnType := function.Type.(*model.SymbolNode).Type.(*model.FuncType).Return
@@ -72,6 +89,7 @@ func BuildSymbolTable(root *model.GrammarNode) *list.List {
 					model.ReturnTypeError.PrintError(exp.Line, function.Name)
 				}
 			}
+
 		}
 
 		childList := now.Child
@@ -79,6 +97,56 @@ func BuildSymbolTable(root *model.GrammarNode) *list.List {
 			grammarStack.Push(childList[i])
 		}
 	}
+}
 
-	return irList
+func GenIr(root *model.GrammarNode) *model.IrCode {
+	rootCode := model.NewIrCode(model.NONE, nil, model.NONE)
+	cur := rootCode
+	grammarStack := model.NewStack()
+	grammarStack.Push(root)
+	for !grammarStack.IsEmpty() {
+		t, err := grammarStack.Pop()
+		now := *t
+		if err != nil {
+			println(err)
+			return nil
+		}
+		if now.IsEmpty || now.Child == nil {
+			continue
+		}
+		if now.WordType == model.NTERM {
+			nterm := (*now).String()
+			if nterm == "FunDec" {
+				code := GenFunDecCode(now)
+				if code != nil {
+					model.ConnectIr(cur, code)
+					for cur.Next != nil {
+						cur = cur.Next
+					}
+				}
+
+			} else if nterm == "Dec" {
+				code := GenDecCode(now)
+				if code != nil {
+					model.ConnectIr(cur, code)
+					for cur.Next != nil {
+						cur = cur.Next
+					}
+				}
+			} else if nterm == "Stmt" && !now.IsVisited {
+				code := GenStmtCode(now)
+				if code != nil {
+					model.ConnectIr(cur, code)
+					for cur.Next != nil {
+						cur = cur.Next
+					}
+				}
+			}
+		}
+		childList := now.Child
+		for i := len(childList) - 1; i >= 0; i-- {
+			grammarStack.Push(childList[i])
+		}
+	}
+	return rootCode
 }

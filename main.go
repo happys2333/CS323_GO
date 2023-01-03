@@ -3,6 +3,7 @@ package main
 import (
 	"CS323_GO/model"
 	"CS323_GO/paser"
+	"fmt"
 	"os"
 	"strings"
 )
@@ -13,7 +14,7 @@ func main() {
 		return
 	}
 	filePath := os.Args[1]
-	outputFilePath := strings.Replace(filePath, ".spl", ".out", 1)
+	outputFilePath := strings.Replace(filePath, ".spl", ".ir", 1)
 	outputFile, err := os.OpenFile(outputFilePath, os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0777)
 	if err != nil {
 		println(err.Error())
@@ -23,9 +24,14 @@ func main() {
 	os.Stdout = outputFile
 
 	root := paser.Syntax(filePath)
-	irList := paser.BuildSymbolTable(root)
+	paser.BuildSymbolTable(root)
+	rootCode := paser.GenIr(root)
+
 	if !model.IsError {
-		
+		for cur := rootCode.Next; cur != nil; cur = cur.Next {
+			fmt.Println(cur.String())
+		}
+		fmt.Println()
 	}
 
 }

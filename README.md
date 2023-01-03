@@ -9,7 +9,7 @@ This project written in golang (go version 1.18)
 Due to I used cgo in the code. You should compile the code through gcc or clang.
 
 ```bash
-go build main.go
+go build -o bin/splc main.go
 ```
 
 to run the code you need a spl file
@@ -17,4 +17,4 @@ to run the code you need a spl file
 ${OutputExeFile} ${SPL_FILE_PATH}
 ```
 
-
+output file will in the same path of your input
