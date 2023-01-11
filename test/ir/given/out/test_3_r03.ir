@@ -1,0 +1,63 @@
+FUNCTION main :
+N := #30
+num := #0
+i := #1
+k := #1
+LABEL label1 :
+t1 := k
+t2 := N
+IF t1 <= t2 GOTO label2
+GOTO label3
+LABEL label2 :
+LABEL label4 :
+t3 := i
+t4 := k
+IF t3 <= t4 GOTO label5
+GOTO label6
+LABEL label5 :
+t5 := k
+t9 := k
+t10 := i
+t7 := t9 / t10
+t8 := i
+t6 := t7 * t8
+IF t5 == t6 GOTO label7
+GOTO label8
+LABEL label7 :
+t13 := num
+t14 := #1
+t12 := t13 + t14
+num := t12
+t11 := num
+LABEL label8 :
+t17 := i
+t18 := #1
+t16 := t17 + t18
+i := t16
+t15 := i
+GOTO label4
+LABEL label6 :
+t19 := num
+t20 := #2
+IF t19 == t20 GOTO label9
+GOTO label10
+LABEL label9 :
+t22 := k
+WRITE t22
+LABEL label10 :
+t24 := #1
+i := t24
+t23 := i
+t26 := #0
+num := t26
+t25 := num
+t29 := k
+t30 := #1
+t28 := t29 + t30
+k := t28
+t27 := k
+GOTO label1
+LABEL label3 :
+t31 := #0
+RETURN t31
+

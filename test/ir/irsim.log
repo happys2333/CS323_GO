@@ -1,0 +1,28 @@
+[DEBUG] 2023-01-11 14:39:12,755 (irsim.py 620): Parsed arguments: {'irpath': '/home/happys/GolandProjects/CS323_GO/test/ir/given/in/test01.ir', 'inputs': '', 'logpath': 'irsim.log'}
+[INFO] 2023-01-11 14:39:12,756 (irsim.py 567): File loaded successfully
+[ERROR] 2023-01-11 14:39:16,378 (irsim.py 581): An error occurred at line 2: Illegal memory access
+[ERROR] 2023-01-11 14:39:27,517 (irsim.py 581): An error occurred at line 2: Illegal memory access
+[WARNING] 2023-01-11 14:39:29,397 (irsim.py 574): Program Counter goes out of bound. The running program will be terminated instantly
+[WARNING] 2023-01-11 14:39:29,607 (irsim.py 574): Program Counter goes out of bound. The running program will be terminated instantly
+[WARNING] 2023-01-11 14:39:29,777 (irsim.py 574): Program Counter goes out of bound. The running program will be terminated instantly
+[INFO] 2023-01-11 14:39:49,196 (irsim.py 567): KeyboardInterrupt raised, quit program
+[DEBUG] 2023-01-11 14:43:29,835 (irsim.py 620): Parsed arguments: {'irpath': '/home/happys/GolandProjects/CS323_GO/test/ir/given/in/test01.ir', 'inputs': '', 'logpath': 'irsim.log'}
+[INFO] 2023-01-11 14:43:29,835 (irsim.py 567): File loaded successfully
+[ERROR] 2023-01-11 14:43:30,798 (irsim.py 581): An error occurred at line 2: Illegal memory access
+[DEBUG] 2023-01-11 14:43:38,675 (irsim.py 620): Parsed arguments: {'irpath': '/home/happys/GolandProjects/CS323_GO/test/ir/given/in/test02.ir', 'inputs': '', 'logpath': 'irsim.log'}
+[INFO] 2023-01-11 14:43:38,676 (irsim.py 567): File loaded successfully
+[ERROR] 2023-01-11 14:43:39,507 (irsim.py 581): An error occurred at line 22: Illegal memory access
+[DEBUG] 2023-01-11 14:44:26,025 (irsim.py 620): Parsed arguments: {'irpath': '/home/happys/GolandProjects/CS323_GO/test/ir/given/in/test02.ir', 'inputs': '', 'logpath': 'irsim.log'}
+[INFO] 2023-01-11 14:44:26,025 (irsim.py 567): File loaded successfully
+[ERROR] 2023-01-11 14:44:26,828 (irsim.py 581): An error occurred at line 22: Illegal memory access
+[DEBUG] 2023-01-11 14:44:40,886 (irsim.py 620): Parsed arguments: {'irpath': '/home/happys/GolandProjects/CS323_GO/test/ir/given/in/test02.ir', 'inputs': '', 'logpath': 'irsim.log'}
+[INFO] 2023-01-11 14:44:40,887 (irsim.py 567): File loaded successfully
+[DEBUG] 2023-01-11 14:44:44,655 (irsim.py 620): Parsed arguments: {'irpath': '/home/happys/GolandProjects/CS323_GO/test/ir/given/in/test01.ir', 'inputs': '', 'logpath': 'irsim.log'}
+[INFO] 2023-01-11 14:44:44,655 (irsim.py 567): File loaded successfully
+[ERROR] 2023-01-11 14:44:45,647 (irsim.py 581): An error occurred at line 2: Illegal memory access
+[DEBUG] 2023-01-11 14:45:10,683 (irsim.py 620): Parsed arguments: {'irpath': '/home/happys/桌面/CS323-2022F-main/project/phase3/sample/test01.ir', 'inputs': '', 'logpath': 'irsim.log'}
+[INFO] 2023-01-11 14:45:10,684 (irsim.py 567): File loaded successfully
+[ERROR] 2023-01-11 14:45:11,547 (irsim.py 581): An error occurred at line 2: Illegal memory access
+[DEBUG] 2023-01-11 14:45:22,715 (irsim.py 620): Parsed arguments: {'irpath': '/home/happys/GolandProjects/CS323_GO/test/ir/given/in/test01.ir', 'inputs': '', 'logpath': 'irsim.log'}
+[INFO] 2023-01-11 14:45:22,715 (irsim.py 567): File loaded successfully
+[ERROR] 2023-01-11 14:45:23,427 (irsim.py 581): An error occurred at line 2: Illegal memory access

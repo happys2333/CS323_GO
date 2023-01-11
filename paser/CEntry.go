@@ -52,6 +52,7 @@ func cToGoNode(node *C.struct_Node, from *model.GrammarNode) *model.GrammarNode 
 		IsRight:   int(node.lval_or_rval) == 1,
 		IsEmpty:   int(node.empty) == 1,
 		IsVisited: false,
+		IsTrans:   false,
 	}
 	if cList == nil {
 		return grammarNode

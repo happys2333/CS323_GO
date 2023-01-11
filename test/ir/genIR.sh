@@ -11,8 +11,7 @@ do
    filename=`expr substr "$var" 1 10`
    echo $filename
    $exe $testPath/in/$var
-   diff $testPath/in/$filename.out $testPath/out/$filename.out
 done
-
+mv $testPath/in/*.ir $testPath/out/
 
 

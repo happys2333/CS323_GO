@@ -6,7 +6,7 @@ import (
 )
 
 func GenStmtCode(node *model.GrammarNode) *model.IrCode {
-	node.IsVisited = true
+	node.IsTrans = true
 	parent := node.Child[0]
 	if parent.WordType == model.NTERM && parent.String() == "Exp" {
 		place := newPlace()

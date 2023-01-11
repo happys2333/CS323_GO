@@ -133,7 +133,7 @@ func GenIr(root *model.GrammarNode) *model.IrCode {
 						cur = cur.Next
 					}
 				}
-			} else if nterm == "Stmt" && !now.IsVisited {
+			} else if nterm == "Stmt" && !now.IsTrans {
 				code := GenStmtCode(now)
 				if code != nil {
 					model.ConnectIr(cur, code)

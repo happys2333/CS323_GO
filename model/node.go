@@ -105,6 +105,7 @@ type GrammarNode struct {
 	IsRight    bool
 	IsEmpty    bool
 	IsVisited  bool
+	IsTrans    bool
 	SymbolNode *SymbolNode
 }
 
